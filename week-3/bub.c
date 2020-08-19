@@ -9,10 +9,7 @@ int main()
    printf("Enter %d numbers: ",count);
 
    for(i=0;i<count;i++)
-   scanf("%d",&number[i]);
-
-   /* This is the main logic of bubble sort algorithm 
-    */
+   scanf("%d",&number[i])
    for(i=count-2;i>=0;i--){
       for(j=0;j<=i;j++){
         if(number[j]>number[j+1]){
