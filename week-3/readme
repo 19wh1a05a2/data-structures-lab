@@ -1,0 +1,106 @@
+Write a program that implements the following sorting methods to sort a given list of
+integers in ascending order
+i) Bubble sort  
+Program :
+#include<stdio.h>
+int main()
+{
+ int count, temp, i, j, number[30];
+ 
+   printf("How many numbers are u going to enter?: ");
+   scanf("%d",&count);
+ 
+   printf("Enter %d numbers: ",count);
+ 
+   for(i=0;i<count;i++)
+   scanf("%d",&number[i]);
+ 
+ 
+   for(i=count-2;i>=0;i--){
+      for(j=0;j<=i;j++){
+        if(number[j]>number[j+1]){
+           temp=number[j];
+           number[j]=number[j+1];
+           number[j+1]=temp;
+        }
+      }
+   }
+ 
+   printf("Sorted elements: ");
+   for(i=0;i<count;i++)
+      printf(" %d",number[i]);
+ 
+   return 0;
+}
+Output :
+   
+ii) Selection sort    
+Program :
+ #include<stdio.h>
+int main()
+{
+   int i, j, count, temp, number[25];
+ 
+   printf("How many numbers u are going to enter?: ");
+   scanf("%d",&count);
+ 
+   printf("Enter %d elements: ", count);
+   
+   for(i=0;i<count;i++)
+      scanf("%d",&number[i]);
+   for(i=0;i<count;i++){
+      for(j=i+1;j<count;j++){
+         if(number[i]>number[j]){
+            temp=number[i];
+            number[i]=number[j];
+            number[j]=temp;
+         }
+      }
+   }
+ 
+   printf("Sorted elements: ");
+   for(i=0;i<count;i++)
+      printf(" %d",number[i]);
+   return 0;
+}
+Output :
+   
+iii) Insertion sort
+Program :
+#include<stdio.h>
+int main(){
+
+   int i, j, count, temp, number[25];
+
+   printf("How many numbers u are going to enter?: ");
+   scanf("%d",&count);
+
+   printf("Enter %d elements: ", count);
+ 
+   for(i=0;i<count;i++)
+      scanf("%d",&number[i]);
+
+  
+   for(i=1;i<count;i++){
+      temp=number[i];
+      j=i-1;
+      while((temp<number[j])&&(j>=0)){
+         number[j+1]=number[j];
+         j=j-1;
+      }
+      number[j+1]=temp;
+   }
+
+   printf("Order of Sorted elements: ");
+   for(i=0;i<count;i++)
+      printf(" %d",number[i]);
+
+   return 0;
+}
+
+Output :
+
+
+
+Hi WHAA,
+As of now, you have a(n) B in the class.  This assignment is worth 15.00 points.  If you get more than 15.00 (100%) on this assignment, your class grade will increase to a(n) A.  If you get less than 9.00 (60%) on this assignment, your grade will drop at least one grade.  Not doing this assignment will result in a(n) D.
