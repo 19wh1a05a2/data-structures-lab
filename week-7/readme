@@ -1,1 +1,624 @@
+DS Week-7
+Problem Statement: Write a C program that implement Queue and its operations using 
+A. Arrays  
+B. Pointers
+Operations
+i) Enqueue  
+ii) Dequeue    
+iii)Is_Queue_Full   
+iv)Is_Queue_Empty
+Program :
+Cqueue using array :
+
+#include<stdio.h>
+#include<stdlib.h>
+#define maxsize 6
+int f =-1,r=-1,cq[maxsize];
+int isfull()
+{
+	if(f==(r+1)%maxsize)
+	return 1;
+	else
+	return 0;
+}
+int isempty()
+{
+	if(f==-1)
+	return 1;
+	else
+	return 0;
+}
+void enqueue(int x)
+{
+	if(f==-1)
+		f=0;
+	r=((r+1)%maxsize);
+	cq[r]=x;
+}
+int dequeue()
+{	
+	int x;
+	x=cq[f];
+	if(f==r)
+		f=r=-1;
+	else
+	{
+		f=((f+1)%maxsize);
+	}
+	return x;
+}
+void display()
+{
+	int i=f;
+	if(f==-1)
+		printf("cq is empty\n");
+	else
+	{
+		while(i !=r)
+		{
+			printf("%d\t",cq[i]);
+			i=(i+1)%maxsize;
+		}
+		printf("%d",cq[i]);
+	}
+}
+int main()
+{
+	int ch,x;
+	while(1)
+	{
+	printf("\n1-enqueue\n2-dequeue\n3-display\n4-exit\n");
+	printf("enter your choice\n");
+	scanf("%d",&ch);
+	switch(ch)
+	{
+	case 1: if(isfull())
+		printf(" circular queue overflow\n");
+		else
+		{
+			printf("enter data to insert\n");
+			scanf("%d",&x);
+			enqueue(x);
+		}
+		break;
+	case 2: if(isempty())
+		printf("cq is empty\n");
+		else
+		{
+			printf("deleted element %d\n",dequeue());
+			
+		}
+		break;
+	case 3 :display();
+		break;
+	case 4 :exit(0);
+		break;
+	}
+	}
+}
+Output :
+
+C:\TDM-GCC-64\dslab>cq_array
+
+1-enqueue
+2-dequeue
+3-display
+4-exit
+enter your choice
+1
+enter data to insert
+10
+
+1-enqueue
+2-dequeue
+3-display
+4-exit
+enter your choice
+1
+enter data to insert
+20
+
+1-enqueue
+2-dequeue
+3-display
+4-exit
+enter your choice
+1
+enter data to insert
+30
+
+1-enqueue
+2-dequeue
+3-display
+4-exit
+enter your choice
+1
+enter data to insert
+40
+
+1-enqueue
+2-dequeue
+3-display
+4-exit
+enter your choice
+3
+10      20      30      40
+1-enqueue
+2-dequeue
+3-display
+4-exit
+enter your choice
+2
+deleted element 10
+
+1-enqueue
+2-dequeue
+3-display
+4-exit
+enter your choice
+3
+20      30      40
+1-enqueue
+2-dequeue
+3-display
+4-exit
+enter your choice
+4
+Program using cqueue_sll :
+#include <stdio.h>
+#include <stdlib.h>
+struct node
+{
+	int data;
+	struct node*link;
+};
+struct node*f=NULL,*r=NULL,*cur;
+
+void enqueue()
+{
+	cur=(struct node*)malloc(sizeof(struct node));
+	printf("Enter data to insert\n");
+	scanf("%d",&cur->data);
+	
+	if(f==NULL)
+	{
+		cur->link=cur;
+		f=r=cur;
+	}	
+	else
+	{
+		r->link=cur;
+		cur->link=f;
+		r=cur;
+	}
+	
+}
+
+
+void dequeue()
+{
+	if(f==NULL)
+	printf("circular queue underflow\n");
+	else if(f==r)
+	{
+		printf("deleted data is %d\n",f->data);
+		f=r=NULL;
+	}
+	else
+	{
+		cur=f;
+		f=f->link;
+		r->link=f;
+		printf("deleted data %d\n",cur->data);
+		free(cur);
+	}
+}
+
+void display()
+{
+	if(f==NULL)
+	printf("circular Queue is empty\n");
+	else
+	{
+		cur=f;
+		while(cur->link!=f)
+		{
+			printf("%d->",cur->data);
+			cur=cur->link;
+		}
+		printf("%d->",cur->data);
+	}
+}
+
+int main()
+{
+	int ch;
+	while(1)
+	{
+		printf("Program for cqueue using sll\n");
+		printf("\n1-enqueue\n2-dequeue\n3-display\n4-exit\n");
+		printf("Enter your choice\n");
+		scanf("%d",&ch);
+		switch(ch)
+		{
+		case 1: enqueue();
+				break;
+		case 2: dequeue();
+				break;
+		case 3: display();
+				break;
+		case 4: exit(0);
+				
+		}
+	}
+}
+Output :
+
+
+
+C:\TDM-GCC-64\dslab>cqueue_sll
+Program for cqueue using sll
+
+1-enqueue
+2-dequeue
+3-display
+4-exit
+Enter your choice
+1
+Enter data to insert
+2
+Program for cqueue using sll
+
+1-enqueue
+2-dequeue
+3-display
+4-exit
+Enter your choice
+1
+Enter data to insert
+4
+Program for cqueue using sll
+
+1-enqueue
+2-dequeue
+3-display
+4-exit
+Enter your choice
+1
+Enter data to insert
+6
+Program for cqueue using sll
+
+1-enqueue
+2-dequeue
+3-display
+4-exit
+Enter your choice
+1
+Enter data to insert
+8
+Program for cqueue using sll
+
+1-enqueue
+2-dequeue
+3-display
+4-exit
+Enter your choice
+3
+2->4->6->8->Program for cqueue using sll
+
+1-enqueue
+2-dequeue
+3-display
+4-exit
+Enter your choice
+2
+deleted data 2
+Program for cqueue using sll
+
+1-enqueue
+2-dequeue
+3-display
+4-exit
+Enter your choice
+3
+4->6->8->Program for cqueue using sll
+
+1-enqueue
+2-dequeue
+3-display
+4-exit
+Enter your choice
+4
+Program using queue in array:
+//Program for queue
+#include<stdio.h>
+#include<stdlib.h>
+#define MaxSize 5
+int f = -1 , r = -1 , queue[MaxSize];
+int is_Full()
+{
+	if(r == MaxSize - 1)
+		return 1;
+	else
+		return 0;
+}
+int is_Empty()
+{
+	if(f == -1)
+		return 1;
+	else
+		return 0;
+}
+void enqueue(int data)
+{
+	if(f == -1)
+		f = 0;
+	queue[++r] = data;
+}
+int dequeue()
+{
+	
+	return(queue[f++]);
+}
+void display()
+{
+	for(int i = f; i <= r; i++)
+		printf("%d\t",queue[i]);
+}
+int main()
+{
+	int ch,x;
+	while(1)
+	{
+		printf("Program for stack using array\n");
+		printf("\n1-enqueue\n2-dequeue\n3-display\n4-exit\n");
+		printf("Enter your choice\n");
+		scanf("%d",&ch);
+		switch(ch)
+		{
+		case 1: if(is_Full())
+				printf("Queue overflow\n");
+			else
+			{
+				printf("Enter data to be inserted:\n");
+				scanf("%d",&x);
+				enqueue(x);
+			}
+			break;
+		case 2:if(is_Empty())
+				printf("Queue underflow\n");
+			else
+				printf("Deleted element is %d\n",dequeue());
+			break;
+		case 3:display();
+			break;
+		case 4: exit(0);
+		}
+	}
+}
+
+
+		
+Output :
+Program for stack using array
+
+1-enqueue
+2-dequeue
+3-display
+4-exit
+Enter your choice
+1
+Enter data to be inserted:
+10
+Program for stack using array
+
+1-enqueue
+2-dequeue
+3-display
+4-exit
+Enter your choice
+1
+Enter data to be inserted:
+20
+Program for stack using array
+
+1-enqueue
+2-dequeue
+3-display
+4-exit
+Enter your choice
+1
+Enter data to be inserted:
+30
+Program for stack using array
+
+1-enqueue
+2-dequeue
+3-display
+4-exit
+Enter your choice
+1
+Enter data to be inserted:
+40
+Program for stack using array
+
+1-enqueue
+2-dequeue
+3-display
+4-exit
+Enter your choice
+3
+10      20      30      40      Program for stack using array
+
+1-enqueue
+2-dequeue
+3-display
+4-exit
+Enter your choice
+2
+Deleted element is 10
+Program for stack using array
+
+1-enqueue
+2-dequeue
+3-display
+4-exit
+Enter your choice
+3
+20      30      40      Program for stack using array
+
+1-enqueue
+2-dequeue
+3-display
+4-exit
+Enter your choice
+4
+
+Program using queue in sll :
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+	int data;
+	struct node *link;
+};
+struct node *f = NULL , *r = NULL , *cur;
+void enqueue()
+{
+	cur = (struct node*)malloc(sizeof(struct node));
+	printf("Enter data to insert:\n");
+	scanf("%d",&(cur->data));
+	cur->link = NULL;
+	if(f == NULL)
+		f = r = cur;
+	else
+	{
+		r->link = cur;
+		r = cur;
+	}
+}
+void dequeue()
+{
+	if(f == NULL)
+		printf("Queue underflow\n");
+	else if(f == r)
+	{
+		printf("Deleted data %d\n",f->data);
+		f = r = NULL;
+	}
+	else
+	{
+		cur = f;
+		f = f->link;
+		printf("Deleted data is %d\n",cur->data);
+		free(cur);
+	}
+}
+void display()
+{
+	if(f == NULL)
+		printf("Queue is Empty\n");
+	else
+	{
+		cur = f;
+		while(cur != NULL)
+		{
+			printf("%d->" , cur->data);
+			cur = cur->link;
+		}
+	}
+}
+int main()
+{
+	int ch;
+	while(1)
+	{
+		printf("\n1-enqueue\n2-dequeue\n3-display\n4-exit\n");
+		printf("Enter your choice\n");
+		scanf("%d",&ch);
+		switch(ch)
+		{
+		case 1: enqueue();
+			break;
+		case 2: dequeue();
+			break;
+		case 3: display();
+			break;
+		case 4: exit(0);
+		}
+	}
+}
+	
+	
+Output :
+
+Enter your choice
+1
+Enter data to insert:
+10
+
+1-enqueue
+2-dequeue
+3-display
+4-exit
+Enter your choice
+1
+Enter data to insert:
+20
+
+1-enqueue
+2-dequeue
+3-display
+4-exit
+Enter your choice
+1
+Enter data to insert:
+30
+
+1-enqueue
+2-dequeue
+3-display
+4-exit
+Enter your choice
+1
+Enter data to insert:
+40
+
+1-enqueue
+2-dequeue
+3-display
+4-exit
+Enter your choice
+3
+10->20->30->40->
+1-enqueue
+2-dequeue
+3-display
+4-exit
+Enter your choice
+2
+Deleted data is 10
+
+1-enqueue
+2-dequeue
+3-display
+4-exit
+Enter your choice
+3
+20->30->40->
+1-enqueue
+2-dequeue
+3-display
+4-exit
+Enter your choice
+4
+
+
+
+
+
+		
+Hi WHAA,
+As of now, you have a(n) A+ in the class.  This assignment is worth 15.00 points.  If you get less than 6.00 (40%) on this assignment, your grade will drop at least one grade.  Not doing this assignment will result in a(n) A.
 
